@@ -218,6 +218,32 @@ export function getMockSaleData(): SaleDataResponse {
         ctaText: "[XX]",
       },
     ],
+    stackedTiers: [
+      {
+        id: "tier-1",
+        headerLeft: "[XX]",
+        headerRight: "[XX]",
+        subLabelLeft: "DEMO",
+        valueLeft: "[XX]",
+        subValueLeft: "DEMO",
+        subLabelRight: "DEMO",
+        valueRight: "[XX]",
+        subValueRight: "Demo",
+        ctaText: "Lorem ipsum",
+      },
+      {
+        id: "tier-2",
+        headerLeft: "[XX]",
+        headerRight: "[XX]",
+        subLabelLeft: "DEMO",
+        valueLeft: "[XX]",
+        subValueLeft: "DEMO",
+        subLabelRight: "DEMO",
+        valueRight: "[XX]",
+        subValueRight: "Demo",
+        ctaText: "Lorem ipsum",
+      },
+    ],
     swap: {
       fromToken: {
         symbol: "[XX]",

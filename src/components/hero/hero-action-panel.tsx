@@ -1,66 +1,49 @@
 "use client";
 
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useSaleData } from "@/hooks/use-sale-data";
+import { ModeAActionHub } from "./panel-modes/mode-a-action-hub";
+import { ModeBSingleAction } from "./panel-modes/mode-b-single-action";
+import { ModeCChecklist } from "./panel-modes/mode-c-checklist";
+import { ModeD1PoolMatrix } from "./panel-modes/mode-d1-pool-matrix";
+import { ModeD2StackedTiers } from "./panel-modes/mode-d2-stacked-tiers";
+import { ModeESwapForm } from "./panel-modes/mode-e-swap-form";
+import { ModeFAssetDetails } from "./panel-modes/mode-f-asset-details";
+
+function ActionPanelContent() {
+  const { data, isLoading } = useSaleData();
+  const searchParams = useSearchParams();
+  const panel = searchParams?.get("panel")?.toLowerCase();
+
+  switch (panel) {
+    case "single":
+      return <ModeBSingleAction data={data?.actionPanel} isLoading={isLoading} />;
+    case "checklist":
+      return <ModeCChecklist checklist={data?.checklist} isLoading={isLoading} />;
+    case "matrix":
+      return <ModeD1PoolMatrix columns={data?.poolMatrix} isLoading={isLoading} />;
+    case "stacked":
+      return <ModeD2StackedTiers tiers={data?.stackedTiers} isLoading={isLoading} />;
+    case "swap":
+      return <ModeESwapForm swapData={data?.swap} isLoading={isLoading} />;
+    case "details":
+      return <ModeFAssetDetails assetDetails={data?.assetDetails} isLoading={isLoading} />;
+    case "default":
+    default:
+      return <ModeAActionHub data={data?.actionPanel} isLoading={isLoading} />;
+  }
+}
 
 export function HeroActionPanel() {
   const { data, isLoading } = useSaleData();
 
-  const badge = data?.actionPanel.badge ?? "LOREM IPSUM";
-  const description = data?.actionPanel.description ?? "Lorem ipsum dolor sit amet consectetur adipiscing";
-  const primaryCta = data?.actionPanel.primaryCta ?? "Lorem ipsum";
-  const secondaryCta = data?.actionPanel.secondaryCta ?? "Lorem ipsum";
-  const disclaimer = data?.actionPanel.disclaimer ?? "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do";
-
   return (
     <div className="relative">
-      {/* HUD Action Frame with Corner Brackets */}
       <div className="hud-card p-6 sm:p-7 rounded-sm shadow-[0_0_35px_rgba(255,70,0,0.08)] bg-[#0A0A0A]/95 backdrop-blur-sm border border-zinc-800/90">
-        {/* Panel Header */}
-        <div className={`mb-6 ${isLoading ? "animate-pulse opacity-70" : ""}`}>
-          <h2 className="text-xs font-mono font-bold tracking-wider text-zinc-200 uppercase mb-1.5">
-            {badge}
-          </h2>
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            {description}
-          </p>
-        </div>
-
-        {/* Primary CTA Card (Solid Orange with Corner Ticks) */}
-        <button
-          type="button"
-          className="w-full relative p-5 bg-[#FF4600] hover:bg-[#E03E00] text-center rounded-sm transition-all shadow-[0_0_20px_rgba(255,70,0,0.28)] cursor-pointer group mb-4 focus:outline-none focus:ring-1 focus:ring-white"
-        >
-          {/* Corner Ticks */}
-          <span className="absolute top-1 left-1 w-2 h-2 border-t border-l border-white/60 pointer-events-none" />
-          <span className="absolute top-1 right-1 w-2 h-2 border-t border-r border-white/60 pointer-events-none" />
-          <span className="absolute bottom-1 left-1 w-2 h-2 border-b border-l border-white/60 pointer-events-none" />
-          <span className="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-white/60 pointer-events-none" />
-
-          <span className="text-sm font-bold tracking-wider text-white uppercase font-mono">
-            {primaryCta}
-          </span>
-        </button>
-
-        {/* Secondary CTA Card (Hollow Dark with Orange Border and Corner Ticks) */}
-        <button
-          type="button"
-          className="w-full relative p-5 bg-[#0C0C0C] hover:bg-[#141414] border border-[#FF4600]/40 hover:border-[#FF4600] text-center rounded-sm transition-all cursor-pointer group mb-5 focus:outline-none focus:ring-1 focus:ring-[#FF4600]"
-        >
-          {/* Corner Ticks */}
-          <span className="absolute top-1 left-1 w-2 h-2 border-t border-l border-[#FF4600] pointer-events-none" />
-          <span className="absolute top-1 right-1 w-2 h-2 border-t border-r border-[#FF4600] pointer-events-none" />
-          <span className="absolute bottom-1 left-1 w-2 h-2 border-b border-l border-[#FF4600] pointer-events-none" />
-          <span className="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-[#FF4600] pointer-events-none" />
-
-          <span className="text-sm font-bold tracking-wider text-zinc-200 group-hover:text-white uppercase font-mono">
-            {secondaryCta}
-          </span>
-        </button>
-
-        {/* Footnote Disclaimer */}
-        <p className="text-[11px] text-zinc-500 text-center leading-normal">
-          {disclaimer}
-        </p>
+        <Suspense fallback={<ModeAActionHub data={data?.actionPanel} isLoading={isLoading} />}>
+          <ActionPanelContent />
+        </Suspense>
       </div>
     </div>
   );

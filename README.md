@@ -208,10 +208,33 @@ The Next.js 16 App Router will automatically bundle Route Handlers (`/api/sale` 
 
 ---
 
-## 11. Explicit Scope Boundaries & Assessment Disclaimers
+## 11. Reference Screen Architecture & Reviewer URL Parameters
+
+The project faithfully matches all 15 Figma reference screenshots provided in the assessment briefing, organized into modular interactive components:
+
+### Interactive Header States (Screens 02–05 & 15)
+- **Category Dropdown (Button 1):** Clicking the category button toggles the dark dropdown overlay (`[Lorem ipsum v]` ↔ `[Lorem ipsum ^]`), displaying 4 selectable category options with the reference active-state highlight on Item 4. Dismisses on outside click or `Escape`.
+- **Wallet Connection Toggle (Button 2):** Clicking the wallet button simulates connecting/disconnecting a Web3 wallet (`[Lorem ipsum]` ↔ `[[XX] v]`).
+- **Connected Wallet Popover (Screen 05):** When connected, clicking `[[XX] v]` opens the HUD wallet popover with a green live status dot, copyable address (`0x71C...49A1`) with clipboard feedback, external explorer link, and a disconnect action.
+
+### Modular Right Hero Action Panel (Screens 01–15)
+The right hero panel supports all 7 distinct layouts from the 15 reference screenshots. By default, **Screen 01 (Mode A: Action Hub)** is rendered with zero URL parameters. Reviewers can inspect any of the other panel states via the following URL parameters:
+
+| Reference Screens | URL Parameter | Layout Description |
+|:---|:---|:---|
+| **Screens 01–05** | `http://localhost:3000` *(Default)* | **Mode A (Action Hub):** Dual stacked CTAs with corner ticks, badge, and disclaimer. |
+| **Screen 06** | `http://localhost:3000/?panel=single` | **Mode B (Single Action CTA):** Glowing `• LOREM IPSUM` badge and single full-width primary CTA. |
+| **Screen 07** | `http://localhost:3000/?panel=checklist` | **Mode C (Checklist):** Media canvas placeholder on left + interactive 4-item verification checklist on right. |
+| **Screens 08 & 15** | `http://localhost:3000/?panel=matrix` | **Mode D1 (Dual-Tier Matrix):** Side-by-side comparison columns, each with 8 key-value metrics and an orange CTA. |
+| **Screen 14** | `http://localhost:3000/?panel=stacked` | **Mode D2 (Stacked Tiers):** Vertically stacked tier cards with dual-metric headers and full-width CTAs. |
+| **Screens 09–12** | `http://localhost:3000/?panel=swap` | **Mode E (Token Swap Form):** From/To inputs, swap direction button `↓`, token dropdown, 7 breakdown rows, Base badge, interactive terms checkbox, and conditional submit button state (dark muted when unchecked, bright orange with corner ticks when checked). |
+| **Screen 13** | `http://localhost:3000/?panel=details` | **Mode F (Asset Details):** Centered media canvas placeholder, `LOREM IPSUM` title, 6 key-value detail rows, and dual CTAs. |
+
+---
+
+## 12. Explicit Scope Boundaries & Assessment Disclaimers
 
 In strict adherence to the assessment instructions:
-- **No Real Web3 / Blockchain Integration:** This project is a front-end UI and mock API demonstration. There are **no wallet connections** (no `wagmi`, `viem`, `ethers`, or `rainbowkit`), no smart contracts, no on-chain transactions, and no live payment processing.
+- **No Real Web3 / Blockchain Integration:** This project is a front-end UI and mock API demonstration. There are **no wallet connections** (no `wagmi`, `viem`, `ethers`, or `rainbowkit`), no smart contracts, no on-chain transactions, and no live payment processing. All wallet and swap states are simulated locally.
 - **No Fabricated Financial Claims:** In accordance with the Phase 0 audit, visible wireframe placeholders (`[XX]`, `Demo`, `DEMO`, `Lorem ipsum`) are intentionally preserved. The project does not invent fake token prices, financial yields, investor returns, or unverified contract addresses.
 - **Default Production View:** The landing page faithfully implements **Screen 01 (Mode A: Action Hub)** from the 15 reference screenshots.
-

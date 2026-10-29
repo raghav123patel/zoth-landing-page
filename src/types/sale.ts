@@ -46,6 +46,19 @@ export interface PoolMatrixColumn {
   ctaText: string;
 }
 
+export interface StackedTierItem {
+  id: string;
+  headerLeft: string;
+  headerRight: string;
+  subLabelLeft: string;
+  valueLeft: string;
+  subValueLeft: string;
+  subLabelRight: string;
+  valueRight: string;
+  subValueRight: string;
+  ctaText: string;
+}
+
 export interface SwapDetails {
   fromToken: {
     symbol: string;
@@ -155,9 +168,10 @@ export interface SaleDataResponse {
   // Partner / Marquee Strip
   partners: PartnerItem[];
 
-  // Additional Right Panel Payloads (Supports All 7 Reference Modes Without Invented Claims)
+  // Modular Right Panel Payloads
   checklist?: ChecklistItem[];
   poolMatrix?: [PoolMatrixColumn, PoolMatrixColumn];
+  stackedTiers?: [StackedTierItem, StackedTierItem];
   swap?: SwapDetails;
   assetDetails?: AssetDetailsData;
 }

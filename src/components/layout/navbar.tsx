@@ -18,6 +18,7 @@ export function Navbar() {
 
   // Interactive Header State
   const [categoryOpen, setCategoryOpen] = useState(false);
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(3); // Default Item 4 matching Screen 04
   const [walletConnected, setWalletConnected] = useState(false);
   const [walletPopoverOpen, setWalletPopoverOpen] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
@@ -164,35 +165,32 @@ export function Navbar() {
                   </p>
                 </div>
                 <div className="space-y-1 text-xs font-sans">
-                  <button
-                    type="button"
-                    onClick={() => setCategoryOpen(false)}
-                    className="w-full text-left px-2.5 py-1.5 text-zinc-300 hover:bg-zinc-900 hover:text-white rounded-sm transition-colors cursor-pointer"
-                  >
-                    Lorem ipsum
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setCategoryOpen(false)}
-                    className="w-full text-left px-2.5 py-1.5 text-zinc-300 hover:bg-zinc-900 hover:text-white rounded-sm transition-colors cursor-pointer"
-                  >
-                    Demo Lorem ipsum
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setCategoryOpen(false)}
-                    className="w-full text-left px-2.5 py-1.5 text-zinc-300 hover:bg-zinc-900 hover:text-white rounded-sm transition-colors cursor-pointer"
-                  >
-                    Lorem ipsum
-                  </button>
-                  {/* Item 4 Active Highlight */}
-                  <button
-                    type="button"
-                    onClick={() => setCategoryOpen(false)}
-                    className="w-full text-left px-2.5 py-1.5 bg-[#FF4600]/15 text-[#FF4600] border-l-2 border-[#FF4600] font-medium rounded-r-sm transition-colors cursor-pointer"
-                  >
-                    Lorem ipsum
-                  </button>
+                  {[
+                    "Lorem ipsum",
+                    "Demo Lorem ipsum",
+                    "Lorem ipsum",
+                    "Lorem ipsum",
+                  ].map((cat, idx) => {
+                    const isSelected = selectedCategoryIndex === idx;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        role="menuitem"
+                        onClick={() => {
+                          setSelectedCategoryIndex(idx);
+                          setCategoryOpen(false);
+                        }}
+                        className={`w-full text-left px-2.5 py-1.5 rounded-sm transition-colors cursor-pointer ${
+                          isSelected
+                            ? "bg-[#FF4600]/15 text-[#FF4600] border-l-2 border-[#FF4600] font-medium rounded-r-sm"
+                            : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -343,10 +341,31 @@ export function Navbar() {
             {categoryOpen && (
               <div className="bg-[#111111] p-3 rounded-sm border border-zinc-800 space-y-2 text-xs">
                 <div className="text-[10px] uppercase font-mono text-zinc-400">LOREM IPSUM</div>
-                <button type="button" onClick={() => setMobileMenuOpen(false)} className="block w-full text-left py-1 text-zinc-300">Lorem ipsum</button>
-                <button type="button" onClick={() => setMobileMenuOpen(false)} className="block w-full text-left py-1 text-zinc-300">Demo Lorem ipsum</button>
-                <button type="button" onClick={() => setMobileMenuOpen(false)} className="block w-full text-left py-1 text-zinc-300">Lorem ipsum</button>
-                <button type="button" onClick={() => setMobileMenuOpen(false)} className="block w-full text-left py-1 text-[#FF4600] font-semibold">Lorem ipsum</button>
+                {[
+                  "Lorem ipsum",
+                  "Demo Lorem ipsum",
+                  "Lorem ipsum",
+                  "Lorem ipsum",
+                ].map((cat, idx) => {
+                  const isSelected = selectedCategoryIndex === idx;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => {
+                        setSelectedCategoryIndex(idx);
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`block w-full text-left py-1 transition-colors ${
+                        isSelected
+                          ? "text-[#FF4600] font-semibold"
+                          : "text-zinc-300 hover:text-white"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
               </div>
             )}
 

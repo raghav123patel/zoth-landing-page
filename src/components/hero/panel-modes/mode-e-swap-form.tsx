@@ -176,8 +176,23 @@ export function ModeESwapForm({ swapData, isLoading }: ModeESwapFormProps) {
             <div key={idx} className="flex justify-between items-center py-0.5">
               <span className="text-zinc-500 font-sans">{row.label}</span>
               {isBaseRow ? (
-                <span className="flex items-center gap-1 text-blue-400 font-bold font-sans">
-                  <span className="w-2 h-2 rounded-xs bg-[#0052FF] inline-block" />
+                <span className="flex items-center gap-1.5 text-[#0052FF] font-bold font-sans">
+                  <svg
+                    className="w-2.5 h-2.5 shrink-0"
+                    viewBox="0 0 115 115"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M57.5 115C89.2564 115 115 89.2564 115 57.5C115 25.7436 89.2564 0 57.5 0C25.7436 0 0 25.7436 0 57.5C0 89.2564 25.7436 115 57.5 115Z"
+                      fill="#0052FF"
+                    />
+                    <path
+                      d="M57.5 96.6C79.0943 96.6 96.6 79.0943 96.6 57.5C96.6 35.9057 79.0943 18.4 57.5 18.4C37.2885 18.4 20.6698 33.7845 18.6678 53.475H72.7663V61.525H18.6678C20.6698 81.2155 37.2885 96.6 57.5 96.6Z"
+                      fill="white"
+                    />
+                  </svg>
                   base
                 </span>
               ) : (
